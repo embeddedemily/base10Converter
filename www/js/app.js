@@ -121,25 +121,27 @@ angular.module('starter', ['ionic', 'ngFitText'])
     }
   }
 
-  $scope.minimumBase = function(data) {
-    if(data.search(/[a-f]/) > -1) { return 16; }
-    if(data.search(/[2-9]/) > -1) { return 10; }
+  function minimumBase(n) {
+    if(n.search(/[a-f]/) > -1) {
+      return 16;
+    } else if(n.search(/[2-9]/) > -1) {
+      return 10;
+    }
     return 2;
   }
 
-  $scope.predictedBase = function(data) {
-    var min = $scope.minimumBase(data);
-    var length = data.length;
+  function predictedBase(n) {
+    var minimum = minimumBase(n);
 
-    switch (min) {
+    switch(min) {
       case 2:
-        if (length > 5) {
+        if (n.length > 5) {
           return 2;
         }
 
         return 10;
       default:
-        return min;
+        return minimum;
     }
   }
 
