@@ -133,7 +133,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
   function predictedBase(n) {
     var minimum = minimumBase(n);
 
-    switch(min) {
+    switch(minimum) {
       case 2:
         if (n.length > 5) {
           return 2;
@@ -149,14 +149,14 @@ angular.module('starter', ['ionic', 'ngFitText'])
     var base, number;
 
     if($scope.manualBaseActive == false) {
-      base = $scope.predictedBase($scope.input);
+      base = predictedBase($scope.input);
     } else {
       base = $scope.currentBase;
     }
 
     number = parseFloat($scope.input, base);
 
-    if((number > 9007199254740991 || Number.isNaN(number)) || $scope.minimumBase($scope.input) > base)
+    if((number > 9007199254740991 || Number.isNaN(number)) || minimumBase($scope.input) > base)
     {
       if($scope.input.length > 0) {
         $scope.input = $scope.input.substr(0, $scope.input.length - 1);
@@ -186,7 +186,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
 
   $scope.reCalc = function(base) {
     var number = parseFloat($scope.input, base);
-    var minimum = $scope.minimumBase($scope.input);
+    var minimum = minimumBase($scope.input);
     if(((number > 9007199254740991 || Number.isNaN(number)) || minimum > base) && $scope.input.length != 0) return;
 
     $scope.manualBaseActive = true;
@@ -197,7 +197,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
 
   $scope.validateBaseCircles = function() {
     var number = parseFloat($scope.input, 16);
-    var minimum = $scope.minimumBase($scope.input);
+    var minimum = minimumBase($scope.input);
 
     if((number > 9007199254740991 || Number.isNaN(number))) $scope.hexIndicator = 0; else $scope.hexIndicator = 1;
 
