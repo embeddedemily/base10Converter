@@ -68,6 +68,10 @@ html {
   background: #377BD4;
 }
 
+.control {
+  background: #6A98D4;
+}
+
 .red {
   background: #C75447;
 }
@@ -137,12 +141,21 @@ html {
 #info {
   cursor: pointer;
   z-index: 1;
-  color: #555;
   position: absolute;
-  font-size: 20px;
   top: 30px;
   left: 0px;
   padding: 10px 20px 10px 20px;
+}
+
+#info a {
+  color: #555;
+  font-size: 20px;
+}
+
+#info p {
+  float: right;
+  padding-left: 10px;
+  margin: 0;
 }
 
 #infoScreen {

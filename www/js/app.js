@@ -88,12 +88,16 @@ angular.module('starter', ['ionic', 'ngFitText'])
     {"description":"1", "border":"borderBottom dark"},
     {"description":"2", "border":"borderBottom"},
     {"description":"3", "border":"borderBottom"},
-    {"description":"AC", "rowSpan":2, "border":"borderBottom red"},
+    {"description":"+/-", "border":"borderBottom control"},
     {"description":"0", "border":"borderBottom dark"},
-    {"description":"DEL", "columnSpan":2, "border":"borderBottom red"},
+    {"description":".", "border":"borderBottom control"},
+    {"description":"DEL/AC", "columnSpan":2, "border":"borderBottom red"},
   ];
 
   $scope.input = "";
+
+  $scope.mode = "Automatic";
+  $scope.numberType = "Unsigned Integer";
 
   $scope.currentBase = 10;
   $scope.manualBaseActive = false;
@@ -105,6 +109,17 @@ angular.module('starter', ['ionic', 'ngFitText'])
   $scope.hexIndicator = 1;
   $scope.decIndicator = 1;
   $scope.binIndicator = 1;
+
+  $scope.negate = function() {
+    if($scope.input.search(/\-/) > -1) {
+      $scope.input = $scope.input.substr(1, $scope.input.length - 1);
+      $scope.numberType = "Unsigned Integer";
+    }
+    else {
+      $scope.input = '-' + $scope.input;
+      $scope.numberType = "Signed Integer";
+    }
+  }
 
   $scope.minimumBase = function(data) {
     if(data.search(/[a-f]/) > -1) { return 16; }
@@ -137,7 +152,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
       base = $scope.currentBase;
     }
 
-    number = parseInt($scope.input, base);
+    number = parseFloat($scope.input, base);
 
     if((number > 9007199254740991 || Number.isNaN(number)) || $scope.minimumBase($scope.input) > base)
     {
@@ -168,7 +183,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
   }
 
   $scope.reCalc = function(base) {
-    var number = parseInt($scope.input, base);
+    var number = parseFloat($scope.input, base);
     var minimum = $scope.minimumBase($scope.input);
     if(((number > 9007199254740991 || Number.isNaN(number)) || minimum > base) && $scope.input.length != 0) return;
 
@@ -179,22 +194,23 @@ angular.module('starter', ['ionic', 'ngFitText'])
   }
 
   $scope.validateBaseCircles = function() {
-    var number = parseInt($scope.input, 16);
+    var number = parseFloat($scope.input, 16);
     var minimum = $scope.minimumBase($scope.input);
 
     if((number > 9007199254740991 || Number.isNaN(number))) $scope.hexIndicator = 0; else $scope.hexIndicator = 1;
 
-    number = parseInt($scope.input, 10);
+    number = parseFloat($scope.input, 10);
     if((number > 9007199254740991 || Number.isNaN(number)) || minimum > 10) $scope.decIndicator = 0; else $scope.decIndicator = 1;
 
-    number = parseInt($scope.input, 2);
+    number = parseFloat($scope.input, 2);
     if((number > 9007199254740991 || Number.isNaN(number)) || minimum > 2) $scope.binIndicator = 0; else $scope.binIndicator = 1;
   }
 
   $scope.keyPressed = function(val) {
-    if(val == "ac") {
-      $scope.clear();
-    } else if(val == "del") {
+    if(val == "+/-") {
+      $scope.negate();
+      $scope.setOutput();
+    } else if(val == "del/ac") {
       $scope.remove();
     } else {
       $scope.add(val);

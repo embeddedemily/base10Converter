@@ -25,7 +25,10 @@
   </head>
   <body ng-app="starter" ng-controller="BaseConverterController">
     <ion-pane>
-      <a id="info" ng-init="init($event)" class="ion-ios-help-outline" ng-click="openPopover($event)"></a>
+      <div id="info">
+        <a ng-init="init($event)" class="ion-ios-help-outline" ng-click="openPopover($event)"></a>
+        <p>{{mode}}, {{numberType}}</p>
+      </div>
       <div id="output">
           <div class="base" ng-click="reCalc(16)">
               <p class="result" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="12" data-fittext-max="initial" ng-model="hex">{{hex}}</p>
