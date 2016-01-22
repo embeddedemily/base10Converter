@@ -1,0 +1,171 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* roboto-100 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: url('../fonts/roboto-v15-latin-100.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Thin'), local('Roboto-Thin'),
+       url('../fonts/roboto-v15-latin-100.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/roboto-v15-latin-100.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/roboto-v15-latin-100.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/roboto-v15-latin-100.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/roboto-v15-latin-100.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+.pane {
+  background: #eee;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+
+.key {
+  background: #4294FF;
+  color: #eee;
+  font-size: 5vh;
+  float: left;
+  width: 25%;
+  height: 20%;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+}
+
+.key.activated {
+  background: #1A3B66;
+}
+
+#keypad {
+  position: fixed;
+  bottom: 0;
+  height: 60%;
+  right: 0;
+  left: 0;
+  padding: 0 1px 0 0;
+}
+
+.columnSpan2 {
+  width: 50%;
+}
+
+.rowSpan2 {
+  float: right;
+  height: 40%;
+}
+
+.borderBottom {
+  box-shadow: 1px 1px 0px 0px #eee inset;
+}
+
+.dark {
+  background: #377BD4;
+}
+
+.red {
+  background: #C75447;
+}
+
+.red.activated {
+  background: #662B24;
+}
+
+#output {
+  position: fixed;
+  top: 0;
+  height: 40%;
+  left: 0;
+  right: 0;
+  background: #eee;
+  padding: 5% 5% 2.5% 5%;
+  display: -webkit-flex;
+  -webkit-justify-content: flex-end;
+  -webkit-align-items: flex-end;
+  -webkit-flex-direction: column;
+}
+
+.baseH {
+  width: 100%;
+  text-align: right;
+  margin: 0 0 5px 0;
+}
+
+.resultH {
+  word-break: break-all;
+  white-space: normal;
+  font-size: 7vh;
+  line-height: 7vh;
+  margin: 0 0 1px 0;
+  padding: 0;
+}
+
+.labelH {
+  font-size: 2vh;
+  line-height: 2vh;
+  margin: 0;
+  padding: 0;
+}
+
+.base {
+  width: 100%;
+  text-align: right;
+  margin: 0 0 5px 0;
+}
+
+.result {
+  word-break: break-all;
+  white-space: normal;
+  font-size: 5vh;
+  line-height: 5vh;
+  margin: 0 0 1px 0;
+  padding: 0;
+}
+
+.label {
+  font-size: 2vh;
+  line-height: 2vh;
+  margin: 0;
+  padding: 0;
+}
+
+#info {
+  cursor: pointer;
+  z-index: 1;
+  color: #555;
+  position: absolute;
+  font-size: 20px;
+  top: 30px;
+  left: 0px;
+  padding: 10px 20px 10px 20px;
+}
+
+#infoScreen {
+  width: 80%;
+  max-height: 50%;
+}
+
+#infoList {
+  list-style: inside;
+}
+
+#infoList li {
+  margin-bottom: 5px;
+}
+
+.popoverText {
+  padding: 10px 10px 0px 10px;
+}
+
+.circle1 {
+  display: inline;
+}
+
+.circle0 {
+  display: none;
+}

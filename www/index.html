@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    <script src="lib/jquery-2.2.0.min.js"></script>
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script src="lib/ngFitText/src/ng-FitText.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller="BaseConverterController">
+    <ion-pane>
+      <a id="info" ng-init="init($event)" class="ion-ios-help-outline" ng-click="openPopover($event)"></a>
+      <div id="output">
+          <div class="base" ng-click="reCalc(16)">
+              <p class="result" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="12" data-fittext-max="initial" ng-model="hex">{{hex}}</p>
+              <p class="label">Hexadecimal <span class="circle{{hexIndicator}}" ng-class="currentBase==16 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
+          </div>
+          <div class="baseH" ng-click="reCalc(10)">
+              <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="dec">{{dec}}</p>
+              <p class="labelH">Decimal <span class="circle{{decIndicator}}" ng-class="currentBase==10 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
+          </div>
+          <div class="baseH" ng-click="reCalc(2)">
+              <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="bin">{{bin}}</p>
+              <p class="labelH">Binary <span class="circle{{binIndicator}}" ng-class="currentBase==2 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
+          </div>
+      </div>
+      <div id="keypad">
+        <div class="key rowSpan{{key.rowSpan}} columnSpan{{key.columnSpan}} {{key.border}}" ng-click="keyPressed(&apos;{{key.description.toLowerCase()}}&apos;)" ng-repeat="key in keys"><span>{{key.description}}</span></div>
+      </div>
+    </ion-pane>
+  </body>
+</html>
