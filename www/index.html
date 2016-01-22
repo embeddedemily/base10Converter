@@ -44,7 +44,7 @@
           </div>
       </div>
       <div id="keypad">
-        <div class="key rowSpan{{key.rowSpan}} columnSpan{{key.columnSpan}} {{key.border}}" ng-click="keyPressed(&apos;{{key.description.toLowerCase()}}&apos;)" ng-repeat="key in keys"><span>{{key.description}}</span></div>
+        <div class="key rowSpan{{key.rowSpan}} columnSpan{{key.columnSpan}} {{key.border}}" ng-click="keyPressed(&apos;{{key.description.toLowerCase()}}&apos;)" on-hold="keyHold('{{key.description.toLowerCase()}}')" ng-repeat="key in keys"><span>{{key.description}}</span></div>
       </div>
     </ion-pane>
   </body>

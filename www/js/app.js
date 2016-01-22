@@ -219,6 +219,12 @@ angular.module('starter', ['ionic', 'ngFitText'])
     }
   }
 
+  $scope.keyHold = function(val) {
+    if(val == "del/ac") {
+      $scope.clear();
+    }
+  }
+
   $scope.add = function(added) {
     if ($scope.input.length == 0 && $scope.added == '0') {
         return;
