@@ -113,11 +113,9 @@ angular.module('starter', ['ionic', 'ngFitText'])
   $scope.negate = function() {
     if($scope.input.search(/\-/) > -1) {
       $scope.input = $scope.input.substr(1, $scope.input.length - 1);
-      $scope.numberType = "Unsigned Integer";
     }
     else {
       $scope.input = '-' + $scope.input;
-      $scope.numberType = "Signed Integer";
     }
   }
 
@@ -154,7 +152,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
       base = $scope.currentBase;
     }
 
-    number = parseFloat($scope.input, base);
+    number = parseInt($scope.input, base);
 
     if((number > 9007199254740991 || Number.isNaN(number)) || minimumBase($scope.input) > base)
     {
@@ -185,31 +183,40 @@ angular.module('starter', ['ionic', 'ngFitText'])
   }
 
   $scope.reCalc = function(base) {
-    var number = parseFloat($scope.input, base);
+    var number = parseInt($scope.input, base);
     var minimum = minimumBase($scope.input);
     if(((number > 9007199254740991 || Number.isNaN(number)) || minimum > base) && $scope.input.length != 0) return;
 
     $scope.manualBaseActive = true;
+    $scope.mode = "Manual";
     $scope.currentBase = base;
 
     $scope.setOutput();
   }
 
   $scope.validateBaseCircles = function() {
-    var number = parseFloat($scope.input, 16);
+    var number = parseInt($scope.input, 16);
     var minimum = minimumBase($scope.input);
 
     if((number > 9007199254740991 || Number.isNaN(number))) $scope.hexIndicator = 0; else $scope.hexIndicator = 1;
 
-    number = parseFloat($scope.input, 10);
+    number = parseInt($scope.input, 10);
     if((number > 9007199254740991 || Number.isNaN(number)) || minimum > 10) $scope.decIndicator = 0; else $scope.decIndicator = 1;
 
-    number = parseFloat($scope.input, 2);
+    number = parseInt($scope.input, 2);
     if((number > 9007199254740991 || Number.isNaN(number)) || minimum > 2) $scope.binIndicator = 0; else $scope.binIndicator = 1;
   }
 
   $scope.modeClick = function() {
     $scope.mode = ($scope.mode == "Automatic") ? "Manual" : "Automatic";
+  
+    if($scope.mode == 'Automatic') {
+      $scope.manualBaseActive = false;
+    } else {
+      $scope.manualBaseActive = true;
+    }
+
+    $scope.setOutput();
   }
 
   $scope.numberTypeClick = function() {
@@ -218,10 +225,26 @@ angular.module('starter', ['ionic', 'ngFitText'])
 
   $scope.keyPressed = function(val) {
     if(val == "+/-") {
-      $scope.negate();
-      $scope.setOutput();
+      if($scope.manualBaseActive == false)
+      {
+        $scope.numberType = 'Floating Point (IEEE 754)';
+        $scope.manualBaseActive = true;
+        $scope.currentBase = 10;
+
+        $scope.negate();
+        $scope.setOutput();
+      }
     } else if(val == "del/ac") {
       $scope.remove();
+    } else if(val == ".") {
+      if($scope.manualBaseActive == false)
+      {
+        $scope.numberType = 'Floating Point (IEEE 754)';
+        $scope.manualBaseActive = true;
+        $scope.currentBase = 10;
+
+        $scope.add(val);
+      }
     } else {
       $scope.add(val);
     }
@@ -252,6 +275,9 @@ angular.module('starter', ['ionic', 'ngFitText'])
 
     $scope.currentBase = 10;
     $scope.manualBaseActive = false;
+
+    $scope.mode = "Automatic";
+    $scope.numberType = "Unsigned Integer";
 
     $scope.hex = "0";
     $scope.dec = "0";
