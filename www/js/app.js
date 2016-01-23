@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'ngFitText'])
   });
 })
 
-.controller('BaseConverterController', function($scope, $ionicLoading, $ionicPopover, $ionicPlatform) {
+.controller('BaseConverterController', function($scope, $ionicPopover, $ionicPlatform) {
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
