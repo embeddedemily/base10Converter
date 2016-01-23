@@ -208,6 +208,14 @@ angular.module('starter', ['ionic', 'ngFitText'])
     if((number > 9007199254740991 || Number.isNaN(number)) || minimum > 2) $scope.binIndicator = 0; else $scope.binIndicator = 1;
   }
 
+  $scope.modeClick = function() {
+    $scope.mode = ($scope.mode == "Automatic") ? "Manual" : "Automatic";
+  }
+
+  $scope.numberTypeClick = function() {
+    $scope.numberType = ($scope.numberType == "Unsigned Integer") ? "Floating Point (IEEE 754)" : "Unsigned Integer";
+  }
+
   $scope.keyPressed = function(val) {
     if(val == "+/-") {
       $scope.negate();

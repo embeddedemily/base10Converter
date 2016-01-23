@@ -144,18 +144,23 @@ html {
   position: absolute;
   top: 30px;
   left: 0px;
+  color: #555;
   padding: 10px 20px 10px 20px;
+  font-size: 20px;
 }
 
 #info a {
   color: #555;
-  font-size: 20px;
 }
 
 #info p {
   float: right;
   padding-left: 10px;
-  margin: 0;
+  margin: -2px 0 0 0;
+}
+
+#info p a {
+  font-size: 14px;
 }
 
 #infoScreen {

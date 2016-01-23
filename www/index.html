@@ -27,7 +27,7 @@
     <ion-pane>
       <div id="info">
         <a ng-init="init($event)" class="ion-ios-help-outline" ng-click="openPopover($event)"></a>
-        <p>{{mode}}, {{numberType}}</p>
+        <p><a ng-click="modeClick()" >{{mode}}</a>, <a ng-click="numberTypeClick()" >{{numberType}}</a></p>
       </div>
       <div id="output">
           <div class="base" ng-click="reCalc(16)">
