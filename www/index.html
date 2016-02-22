@@ -5,46 +5,65 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta name="format-detection" content="telephone=no">
     <title></title>
-
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
     <script src="lib/jquery-2.2.0.min.js"></script>
-    <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
     <script src="lib/ngFitText/src/ng-FitText.js"></script>
-
-    <!-- your app's js -->
     <script src="js/app.js"></script>
   </head>
   <body ng-app="starter" ng-controller="BaseConverterController">
     <ion-pane>
       <div id="info">
-        <a ng-init="init($event)" class="ion-ios-help-outline" ng-click="openPopover($event)"></a>
-        <p><a ng-click="modeClick()" >{{mode}}</a>, <a ng-click="numberTypeClick()" >{{numberType}}</a></p>
+        <a ng-init="init($event)" class="ion-ios-help-outline" ng-click="help($event)"></a>
+        <p><a ng-class="{disabled: !integer}" ng-click="automaticToggle()" >{{automatic ? "Automatic" : "Manual"}}, </a><a ng-click="integerToggle()" >{{integer ? "Unsigned Integer" : "Single Precision Floating Point (IEEE 754)"}}</a></p>
       </div>
       <div id="output">
-          <div class="base" ng-click="reCalc(16)">
-              <p class="result" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="12" data-fittext-max="initial" ng-model="hex">{{hex}}</p>
-              <p class="label">Hexadecimal <span class="circle{{hexIndicator}}" ng-class="currentBase==16 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
-          </div>
-          <div class="baseH" ng-click="reCalc(10)">
-              <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="dec">{{dec}}</p>
-              <p class="labelH">Decimal <span class="circle{{decIndicator}}" ng-class="currentBase==10 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
-          </div>
-          <div class="baseH" ng-click="reCalc(2)">
-              <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="bin">{{bin}}</p>
-              <p class="labelH">Binary <span class="circle{{binIndicator}}" ng-class="currentBase==2 &amp;&amp; &apos;ion-ios-checkmark&apos; || &apos;ion-ios-circle-outline&apos;"></span></p>
-          </div>
+        <div class="base" ng-click="baseToggle(16)">
+            <p class="result" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="12" data-fittext-max="initial" ng-model="hexadecimal">{{hexadecimal}}</p>
+            <p class="label">Hexadecimal <span ng-class="{'ion-ios-checkmark': base == 16, 'ion-ios-circle-outline': base != 16, disabled: minimumBase > 16}"></span></p>
+        </div>
+        <div class="baseH" ng-click="baseToggle(10)">
+            <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="decimal">{{decimal}}</p>
+            <p class="labelH">Decimal <span ng-class="{'ion-ios-checkmark': base == 10, 'ion-ios-circle-outline': base != 10, disabled: minimumBase > 10}"></span></p>
+        </div>
+        <div class="baseH" ng-click="baseToggle(2)">
+            <p class="resultH" data-fittext="" data-fittext-nl="" data-fittext-load-delay="50" data-fittext-min="18" data-fittext-max="initial" ng-model="binary">{{binary}}</p>
+            <p class="labelH">Binary <span ng-class="{'ion-ios-checkmark': base == 2, 'ion-ios-circle-outline': base != 2, disabled: minimumBase > 2}"></span></p>
+        </div>
       </div>
       <div id="keypad">
-        <div class="key rowSpan{{key.rowSpan}} columnSpan{{key.columnSpan}} {{key.border}}" ng-click="keyPressed(&apos;{{key.description.toLowerCase()}}&apos;)" on-hold="keyHold('{{key.description.toLowerCase()}}')" ng-repeat="key in keys"><span>{{key.description}}</span></div>
+        <div class="row">
+          <a class="col hex" ng-click="add(10)">A</a>
+          <a class="col hex" ng-click="add(11)">B</a>
+          <a class="col hex" ng-click="add(12)">C</a>
+          <a class="col hex" ng-click="add(13)">D</a>
+        </div>
+        <div class="row">
+          <a class="col" ng-click="add(7)">7</a>
+          <a class="col" ng-click="add(8)">8</a>
+          <a class="col" ng-click="add(9)">9</a>
+          <a class="col hex" ng-click="add(14)">E</a>
+        </div>
+        <div class="row">
+          <a class="col" ng-click="add(4)">4</a>
+          <a class="col" ng-click="add(5)">5</a>
+          <a class="col" ng-click="add(6)">6</a>
+          <a class="col hex" ng-click="add(15)">F</a>
+        </div>
+        <div class="row">
+          <a class="col binary" ng-click="add(1)">1</a>
+          <a class="col" ng-click="add(2)">2</a>
+          <a class="col" ng-click="add(3)">3</a>
+          <a class="col destructive" ng-click="allClear()">AC</a>
+        </div>
+        <div class="row">
+          <a class="col nonIntegral"  ng-click="decimalPoint()">.</a>
+          <a class="col binary" ng-click="add(0)">0</a>
+          <a class="col nonIntegral" ng-click="negate()">+/-</a>
+          <a class="col destructive" ng-click="clearEntry()">CE</a>
+        </div>
       </div>
     </ion-pane>
   </body>

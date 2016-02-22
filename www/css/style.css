@@ -26,19 +26,28 @@ html {
   font-weight: 100;
 }
 
-.key {
+#keypad .row {
+  margin: 0;
+  padding: 0;
+  height: 20%;
+}
+
+#keypad .row .col {
+  margin: 0 1px 1px 0;
+  padding: 0;
+
   background: #4294FF;
   color: #eee;
   font-size: 5vh;
   float: left;
   width: 25%;
-  height: 20%;
+  
   display: -webkit-flex;
   -webkit-justify-content: center;
   -webkit-align-items: center;
 }
 
-.key.activated {
+#keypad .row .col.activated {
   background: #1A3B66;
 }
 
@@ -47,37 +56,23 @@ html {
   bottom: 0;
   height: 60%;
   right: 0;
-  left: 0;
-  padding: 0 1px 0 0;
+  left: 1px;
 }
 
-.columnSpan2 {
-  width: 50%;
-}
-
-.rowSpan2 {
-  float: right;
-  height: 40%;
-}
-
-.borderBottom {
-  box-shadow: 1px 1px 0px 0px #eee inset;
-}
-
-.dark {
+#keypad .row .hex {
   background: #377BD4;
 }
 
-.control {
-  background: #6A98D4;
+#keypad .row .binary {
+  background: #377BD4;
 }
 
-.red {
+#keypad .row .destructive {
   background: #C75447;
 }
 
-.red.activated {
-  background: #662B24;
+#keypad .row .nonIntegral {
+  background: #6A98D4;
 }
 
 #output {
@@ -180,10 +175,6 @@ html {
   padding: 10px 10px 0px 10px;
 }
 
-.circle1 {
-  display: inline;
-}
-
-.circle0 {
+.disabled {
   display: none;
 }
